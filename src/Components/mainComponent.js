@@ -19,9 +19,11 @@ import Fab from '@material-ui/core/Fab';
 import Modalchild from './modalchildComponent';
 
 const useStyles = makeStyles((theme) => ({
-    listroot: {marginTop:10,width:'100%',maxWidth: 400,backgroundColor:'blue',color:'white',borderRadius:5,maxHeight:'700px',overflow:'auto'
+    listroot: {marginTop:10,width:'100%',maxWidth: 400,
+    boxShadow:'0px 3px 3px -2px rgba(0, 0, 0, 0.2),0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12)',
+    backgroundColor:'blue',color:'white',borderRadius:5,maxHeight:'700px',overflow:'auto'
       },
-    root: {padding: '2px 4px',display: 'flex',alignItems: 'center',width: 400,
+    root: {padding: '2px 4px',display: 'flex',alignItems: 'center',maxWidth: 400,
     },
     input: {marginLeft: theme.spacing(1),flex: 1,
     },
@@ -31,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
     dividerlist: {height: 1,margin: 4,
     },
-    paper: {position: 'absolute',width: 400,height:75,backgroundColor: '#fbb',borderRadius:5,
-        border: '2px solid #000',marginLeft:'37%',marginTop:'10%',
+    paper: {position: 'absolute',maxWidth: 400,height:75,background: 'linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224))',borderRadius:5,
+        border: '2px solid #000',margin:'auto'
       },
     noteinput:{marginLeft:'15%',width:'70%',marginTop:'70px',
         backgroundColor:'white',borderRadius:3
@@ -44,7 +46,7 @@ function Main() {
     const handleClose=()=>{setopen(false);}
     const handleClose1=()=>{setopen1(false);}
     const addnote=(val)=>{
-        if(val!=''){
+        if(val!==''){
             setnotesarr(notesarr.concat(','+val));
             localStorage.setItem('notesarr',notesarr.concat(','+val));
         }
@@ -65,11 +67,12 @@ function Main() {
     const [textareadata,settextareadata]=useState('');
     const [search,setsearch]=useState(' ');
     const [current,setcurrent]=useState('');
-    if(localStorage.getItem('notesarr') && search!=' ' ){
-        var notesdata=notesarr.split(',').filter((data)=>new RegExp(search).test(data)).map((data)=>{
+    var notesdata;
+    if(localStorage.getItem('notesarr') && search!==' ' ){
+        notesdata=notesarr.split(',').filter((data)=>new RegExp(search).test(data)).map((data)=>{
             return(
                 <>
-                <ListItem
+                <ListItem key={data}
                     onClick={()=>{
                     document.getElementById('multiline').value=localStorage.getItem(data);
                     setTimeout(()=>{
@@ -89,11 +92,11 @@ function Main() {
             );
         })
     }
-    if(localStorage.getItem('notesarr') && search==' ' ){
-        var notesdata=notesarr.split(',').map((data)=>{
+    else if(localStorage.getItem('notesarr') && search===' ' ){
+        notesdata=notesarr.split(',').map((data)=>{
             return(
                 <>
-                <ListItem onClick={()=>{
+                <ListItem key={data} onClick={()=>{
                     document.getElementById('multiline').value=localStorage.getItem(data);
                     setTimeout(()=>{
                         settextareadata(localStorage.getItem(data)||'');
@@ -123,11 +126,11 @@ function Main() {
             <EditIcon style={{marginLeft:8}}/>
             </Fab>
             </div>
-
-            <div className="container" style={{marginTop:50,padding:30,backgroundColor:'whitesmoke',borderRadius:10}}>
+            <div className="container" style={{marginTop:50,marginBottom:50}}>
+            <Paper elevation={3} style={{padding:10,paddingTop:0,background:'linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224))'}}>
                 <div className="row">
-                    <div className="col-lg-5 col-md-12 col-sm-12">
-                        <Paper component="form" className={classes.root}>
+                    <div className="col-lg-5 col-md-12 col-sm-12 mt-2">
+                        <Paper component="form" elevation={3} className={classes.root}>
                             <InputBase
                                 className={classes.input}
                                 placeholder="Search"
@@ -157,7 +160,7 @@ function Main() {
                             {notesdata}
                         </List>
                     </div>
-                    <div className="col">
+                    <div className="col mt-2">
                         <TextField
                         style={{minHeight:500,width:'100%'}}
                         id="multiline"
@@ -171,6 +174,7 @@ function Main() {
                         />
                     </div>
                 </div>
+            </Paper>
             </div>
             </>
           );
@@ -185,10 +189,15 @@ function Main() {
             <EditIcon style={{marginLeft:8}}/>
             </Fab>
             </div>
-            <div style={{backgroundColor:'whitesmoke',marginTop:40,marginLeft:10,marginRight:10,padding:30,borderRadius:8}}>
-                <h3 style={{textAlign:'center',marginTop:10}}>You have Not yet added any notes !</h3>
+            <div style={{marginTop:40}} className="container">
+                <Paper elevation={3} style={{marginLeft:10,marginRight:10,padding:30,borderRadius:8,background:'linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224))'}}>
+                <h4 style={{textAlign:'center',marginTop:10,color:'white'}}>
+                    <b>
+                    YOU HAVE NOT YET ADDED AN NOTES !
+                    </b>
+                    </h4>
                 <div className="d-flex justify-content-center" style={{marginTop:100}}>
-                    <Paper component="form" className={classes.root}>
+                    <Paper elevation={3} component="form" className={classes.root}>
                         <InputBase
                             className={classes.input}
                             placeholder="Search"
@@ -212,6 +221,7 @@ function Main() {
                         </Modal>
                     </Paper>
                 </div>
+                </Paper>
             </div>
         </div>);
     }

@@ -10,27 +10,24 @@ import NoteAddOutlined from '@material-ui/icons/NoteAddOutlined';
 import ContactMail from '@material-ui/icons/ContactMail';
 function App() {
   return (
-    <div>
-      <div style={{display:'flex',justifyContent:'center'}}>
-            <AppBar position="fixed">
-            <Toolbar>
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <NoteAddOutlined />
-              </IconButton>
-              <Typography variant="h6">
-                <b>
-                NOTE MAKER
-                </b>
-              </Typography>
-            </Toolbar>
-          </AppBar>
+    <div style={{display:'flex', flexDirection:'column', height: "100vh"}}>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <NoteAddOutlined />
+          </IconButton>
+          <Typography variant="h6">
+            <b>
+            NOTE MAKER
+            </b>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div style={{marginTop:85}}>
+        <Main/>
       </div>
-      <div style={{marginTop:90}}>
-      <Main/>
-      </div>
-      <div style={{height:100}}></div>
-    <div>
-        <AppBar position="fixed" style={{bottom:0,top:'auto'}}>
+      <div style={{height:20}}></div>
+      <AppBar style={{bottom:0,top:'auto',position:'static',marginTop:'auto'}}>
         <Toolbar>
           <div className="d-flex justify-content-center align-items-center" style={{width:'100%'}}>
             <IconButton edge="start" color="inherit" aria-label="menu">
@@ -44,7 +41,6 @@ function App() {
           </div>
         </Toolbar>
       </AppBar>
-    </div>
     </div>
   );
 }

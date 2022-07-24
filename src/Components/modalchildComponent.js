@@ -10,8 +10,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles((theme) => ({
-    noteinput:{marginLeft:'7px',width:'96%',marginTop:'7px',
-        backgroundColor:'white',borderRadius:3
+    noteinput:{
+      width:'100%',
+      backgroundColor:'white',borderRadius:3
     }
   }));
 
